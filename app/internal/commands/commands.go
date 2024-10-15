@@ -57,6 +57,32 @@ func HandleCommand(buffer []byte) (string, error) {
 						return "", err
 					}
 				}
+				case "KEYS": {
+					switch arguments[0] {
+						case "*": {
+							response, err =	Keys("*")
+							if err != nil {
+								return "", err
+							}
+						}
+						default: {
+							return "", fmt.Errorf("malformed command")
+						}
+					}
+				}
+				case "CONFIG": {
+					switch arguments[0] {
+						case "GET": {
+							response, err = ConfigGet(arguments[1])
+							if err != nil {
+								return "", err
+							}
+						}
+						default: {
+							return "", fmt.Errorf("malformed command")
+						}
+					}
+				}
 			}
 		}
 		default: {
