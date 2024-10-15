@@ -3,8 +3,8 @@ package commands
 import (
 	"strings"
 
-	"redis-clone/app/internal/resp"
-	"redis-clone/app/internal/store"
+	"redis-clone/internal/resp"
+	"redis-clone/internal/store"
 )
 
 func Keys(pattern string) (string, error){

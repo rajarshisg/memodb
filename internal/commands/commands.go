@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"redis-clone/app/internal/resp"
+	"redis-clone/internal/resp"
 )
 
 // HandleCommand function handles the different Redis commands sent by the clients.

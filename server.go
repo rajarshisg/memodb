@@ -6,8 +6,8 @@ import (
 	"net"
 	"os"
 
-	"redis-clone/app/internal/commands"
-	"redis-clone/app/internal/store"
+	"redis-clone/internal/commands"
+	"redis-clone/internal/store"
 )
 
 // handleConnection function handles an incoming client TCP connection requests by acknowledging it with a response.
