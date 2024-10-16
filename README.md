@@ -20,7 +20,7 @@ Go to the project directory
   cd redis-clone
 ```
 
-Build and Start the server
+Run the server
 
 ```bash
   make
