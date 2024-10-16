@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"redis-clone/internal/resp"
-	"redis-clone/internal/store"
+	"memodb/internal/resp"
+	"memodb/internal/store"
 )
 
 func Set(arguments []string) (string, error) {

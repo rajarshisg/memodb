@@ -1,4 +1,4 @@
-# Redis Clone
+# MemoDB
 
 An implementation of the popular in-memory data store, Redis, written in Go.
 
@@ -11,13 +11,13 @@ This database can act as a drop-in replacement for a Redis server as any Redis c
 Clone the project
 
 ```bash
-  git clone https://github.com/rajarshisg/redis-clone.git
+  git clone https://github.com/rajarshisg/memodb.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd redis-clone
+  cd memodb
 ```
 
 Run the server

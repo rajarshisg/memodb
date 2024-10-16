@@ -1,7 +1,7 @@
 package commands
 
 import (
-	"redis-clone/internal/resp"
+	"memodb/internal/resp"
 )
 
 // Echo function handles the ECHO command by returning an str consisting of all the arguments passed

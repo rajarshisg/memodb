@@ -3,8 +3,8 @@ package commands
 import (
 	"strings"
 
-	"redis-clone/internal/resp"
-	"redis-clone/internal/store"
+	"memodb/internal/resp"
+	"memodb/internal/store"
 )
 
 func Keys(pattern string) (string, error){

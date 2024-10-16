@@ -1,6 +1,6 @@
-IMAGE_NAME = redis-clone
+IMAGE_NAME = memodb
 DOCKER_FILE_PATH = .
-CONTAINER_NAME = redis-clone-container
+CONTAINER_NAME = memodb-container
 
 .DEFAULT_GOAL = run
 

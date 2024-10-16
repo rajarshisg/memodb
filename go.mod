@@ -1,3 +1,3 @@
-module redis-clone
+module memodb
 
 go 1.19
