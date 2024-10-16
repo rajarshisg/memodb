@@ -83,19 +83,6 @@ func HandleCommand(buffer []byte) (string, error) {
 						}
 					}
 				}
-				case "INFO": {
-					switch arguments[0] {
-						case "replication": {
-							response, err = InfoReplication()
-							if err != nil {
-								return "", err
-							}
-						}
-						default: {
-							return "", fmt.Errorf("unknown command")
-						}
-					}
-				}
 			}
 		}
 		default: {
