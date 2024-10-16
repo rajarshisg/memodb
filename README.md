@@ -1,6 +1,6 @@
 # MemoDB
 
-MemoDB is a toy database. It's essentially an implementation of the popular in-memory data store, Redis, written in Go.
+MemoDB is a toy key-value database. It's essentially an implementation of the popular in-memory data store, Redis, written in Go.
 
 This database can act as a drop-in replacement for a Redis server as any Redis client in the world would be able to interact with it.
 
