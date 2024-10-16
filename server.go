@@ -6,8 +6,8 @@ import (
 	"net"
 	"os"
 
-	"redis-clone/internal/commands"
-	"redis-clone/internal/store"
+	"memodb/internal/commands"
+	"memodb/internal/store"
 )
 
 // handleConnection function handles an incoming client TCP connection requests by acknowledging it with a response.
@@ -64,7 +64,7 @@ func main() {
 		fmt.Println()
 		fmt.Println()
 		fmt.Println("****************************************")
-		fmt.Printf("* Redis server is running on port %s *\n", *port)
+		fmt.Printf("* MemoDB server is running on port %s *\n", *port)
 		fmt.Println("****************************************")
 		fmt.Println()
 		fmt.Println()

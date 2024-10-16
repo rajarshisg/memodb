@@ -1,6 +1,6 @@
 package commands
 
-import "redis-clone/internal/resp"
+import "memodb/internal/resp"
 
 // Ping function handles the PING command by responding with a PONG.
 func Ping() (string, error) {

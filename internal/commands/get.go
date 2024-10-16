@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"redis-clone/internal/resp"
-	"redis-clone/internal/store"
+	"memodb/internal/resp"
+	"memodb/internal/store"
 )
 
 func Get(arguments []string) (string, error) {

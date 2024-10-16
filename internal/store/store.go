@@ -2,7 +2,7 @@ package store
 
 import (
 	"fmt"
-	"redis-clone/internal/store/rdb"
+	"memodb/internal/store/rdb"
 	"time"
 )
 
