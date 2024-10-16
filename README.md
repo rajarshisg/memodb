@@ -20,14 +20,40 @@ Go to the project directory
   cd redis-clone
 ```
 
-Build the project
+Build and Start the server
 
 ```bash
-  docker build -t redis-clone .
+  make
 ```
 
-Start the server
+## Utility commands for local development
+
+Build the Docker image
 
 ```bash
-  docker run redis-clone
+  make build
+```
+
+Run the Docker container
+
+```bash
+  make run
+```
+
+Stop the Docker container
+
+```bash
+  make stop
+```
+
+Clean-up the Docker image
+
+```bash
+  make clean
+```
+
+Force Docker image re-build
+
+```bash
+  make rebuild
 ```

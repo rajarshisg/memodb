@@ -66,7 +66,7 @@ func HandleCommand(buffer []byte) (string, error) {
 							}
 						}
 						default: {
-							return "", fmt.Errorf("malformed command")
+							return "", fmt.Errorf("unknown command")
 						}
 					}
 				}
@@ -79,14 +79,27 @@ func HandleCommand(buffer []byte) (string, error) {
 							}
 						}
 						default: {
-							return "", fmt.Errorf("malformed command")
+							return "", fmt.Errorf("unknown command")
+						}
+					}
+				}
+				case "INFO": {
+					switch arguments[0] {
+						case "replication": {
+							response, err = InfoReplication()
+							if err != nil {
+								return "", err
+							}
+						}
+						default: {
+							return "", fmt.Errorf("unknown command")
 						}
 					}
 				}
 			}
 		}
 		default: {
-			return "", fmt.Errorf("malformed command")
+			return "", fmt.Errorf("unknown command")
 		}
 	}
 
