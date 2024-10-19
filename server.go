@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"strings"
 
 	"memodb/internal/commands"
 	"memodb/internal/store"
+	"memodb/internal/worker"
 )
 
 // handleConnection function handles an incoming client TCP connection requests by acknowledging it with a response.
@@ -46,6 +48,16 @@ func main() {
 	port := flag.String("port", "6379", "Port on which the Redis server runs")
 	dir := flag.String("dir", "", "Path where RDB backups are stored")
 	dbFileName := flag.String("dbfilename", "dump.rdb", "Name of the backup file")
+	replicaOf := flag.String("replicaof", "", "Host Port")
+
+	masterHost := ""
+	masterPort := ""
+		
+	if *replicaOf != "" {
+		masterHost = strings.Split(*replicaOf, " ")[0]
+		masterPort = strings.Split(*replicaOf, " ")[1]
+	}
+	worker.InitWorker(*replicaOf != "", "127.0.0.1", *port, masterHost, masterPort)
 
 	flag.Parse()
 
@@ -61,6 +73,7 @@ func main() {
 		fmt.Printf("Failed to bind to port %s", *port)
 		os.Exit(1)
 	} else {
+		
 		fmt.Println()
 		fmt.Println()
 		fmt.Println("****************************************")
