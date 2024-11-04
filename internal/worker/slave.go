@@ -2,9 +2,11 @@ package worker
 
 import (
 	"fmt"
-	"memodb/internal/resp"
 	"net"
 	"strings"
+
+	"memodb/internal/resp"
+	"memodb/internal/tcp"
 
 	"github.com/google/uuid"
 )
@@ -17,6 +19,7 @@ func InitSlaveWorker(worker *WorkerType, workerHost, workerPort, masterHost, mas
 	worker.Master_replid = worker.Id
 	worker.Master_repl_offset = 0
 	worker.Connected_slaves = 0
+
 	isHandshakeSuccess, err := masterHandshake(masterHost, masterPort, workerPort)
 
 	if err != nil {
@@ -31,7 +34,6 @@ func InitSlaveWorker(worker *WorkerType, workerHost, workerPort, masterHost, mas
 
 func masterHandshake(masterHost, masterPort, workerPort string) (bool, error) {
 	conn, err := net.Dial("tcp", masterHost + ":" + masterPort)
-	defer conn.Close()
 
 	if err != nil {
 		return false, err
@@ -66,6 +68,11 @@ func masterHandshake(masterHost, masterPort, workerPort string) (bool, error) {
 		}
 		return false, err
 	}
+
+	tcp.Connections = append(tcp.Connections, tcp.TCPConnection{
+		Connection: conn,
+		Initialized: false,
+	})
 
 	return true, nil
 }

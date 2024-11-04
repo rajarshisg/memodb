@@ -1,13 +1,18 @@
 package commands
 
 import (
+	"net"
+
 	"memodb/internal/resp"
 	"memodb/internal/worker"
 )
 
 
-func ReplConf(slavePort string) (string, error) {
-	worker.UpdateSlaveDetailsForMaster(slavePort)
+func ReplConf(clientConn net.Conn, slavePort string) (string, error) {
+	if slavePort != "" {
+		worker.UpdateSlaveDetailsForMaster(clientConn, slavePort)
+	}
+	
 	
 	response, err := resp.SerializeResp(resp.RespType{
 		DataType: resp.String,

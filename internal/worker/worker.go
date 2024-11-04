@@ -1,5 +1,13 @@
 package worker
 
+import (
+	"memodb/internal/store"
+	"net"
+)
+type Slave struct {
+	port string
+	connection net.Conn
+}
 type WorkerType struct {
 	Id string
 	Role string
@@ -8,7 +16,7 @@ type WorkerType struct {
 	Master_replid string
 	Master_repl_offset int
 	Connected_slaves int
-	SlavePorts []string
+	Slaves []Slave
 }
 
 var worker = new(WorkerType)
@@ -20,27 +28,31 @@ func InitWorker(replica bool, workerHost, workerPort, masterHost, masterPort str
 		if err != nil {
 			return "", err
 		}
-		return worker.Id, nil
+		
 	} else {
 		_, err := InitSlaveWorker(worker, workerHost, workerPort, masterHost, masterPort)
 
 		if err != nil {
 			return "", err
 		}
-		return worker.Id, nil
 	}
+	store.SetStore("internal/worker/role", worker.Role)
+	store.SetStore("internal/worker/id", worker.Id)
+	return worker.Id, nil
 }
 
 func GetWorkerDetails() *WorkerType {
 	return worker
 }
 
-func UpdateSlaveDetailsForMaster(slavePort string) bool {
+func UpdateSlaveDetailsForMaster(clientCon net.Conn, port string) bool {
 	if worker.Role != "master" {
 		return false
 	}
 
-	worker.SlavePorts = append(worker.SlavePorts, slavePort)
+	worker.Slaves = append(worker.Slaves, Slave{
+		port: port,
+		connection: clientCon,
+	})
 	return true
-
 }
