@@ -1,8 +1,8 @@
 package store
 
 import (
-	"fmt"
 	"memodb/internal/store/rdb"
+	"sync"
 	"time"
 )
 
@@ -12,8 +12,11 @@ type data struct {
 	expireAt uint64;
 }
 var store = make(map[string]data)
+var mutex sync.Mutex;
 
 func SetStore(key, val string, args ...uint) {
+	mutex.Lock()
+	defer mutex.Unlock()
 	timestamp := uint(time.Now().UnixMilli())
 
 	if len(args) > 0 {
@@ -33,7 +36,6 @@ func SetStore(key, val string, args ...uint) {
 func GetStore(key string) (string, bool) {
     // Check if the key is present in the store
     val, isPresent := store[key]
-    fmt.Printf("Val: %s\n", val.value)
     if !isPresent {
         return "", false // Key doesn't exist
     }
