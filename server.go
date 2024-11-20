@@ -15,7 +15,12 @@ import (
 )
 
 // handleConnection function handles an incoming client TCP connection requests by acknowledging it with a response.
-func handleConnection(clientConn net.Conn, persist bool) {
+func handleConnection(clientConn net.Conn, persist bool, threadPool chan int) {
+	if threadPool != nil {
+		defer func() {
+			<-threadPool
+		}()
+	}
 	defer clientConn.Close()
 
 	startTimestamp := time.Now().Unix() // timestamp at which we started dealing with the connection
@@ -99,10 +104,13 @@ func main() {
 	for _, conn := range tcp.Connections {
 		if !conn.Initialized {
 			conn.Initialized = true;
-			go handleConnection(conn.Connection, true)
+			go handleConnection(conn.Connection, true, nil)
 		}
 			
 	}
+
+	threadPoolSize := 10
+	threadPool := make(chan int, threadPoolSize)
 
 	// new tcp connections
 	for {
@@ -112,7 +120,13 @@ func main() {
 		}
 
 		// each connection is handled in a separate thread
-		go handleConnection(clientConn, false)
+		select {
+			case threadPool <- 1: 
+				go handleConnection(clientConn, false, threadPool)
+			default:
+        		fmt.Println("Connection rejected: Thread pool full")
+        		clientConn.Close()
+		}
 	}
 	
 }
